@@ -1,0 +1,38 @@
+<iscomment>
+    <isdecorate template="common/layout/page">
+</iscomment>
+<isif condition="${!pdict.basket.items.length}">
+    <p>Basket is empty.</p>
+<iselse/>
+    <iscomment>
+        <isloop status="loopstate" items="${pdict.basket.items}" var="productLineItem">
+    </iscomment>
+    <h1 class="page-title">${Resource.msg('title.cart', 'cart', null)}</h1>
+    <isloop status="loopstate" items="${pdict.basket.items}" var="lineItem">
+        <iscomment>
+            <isinclude template="cart/productCard/cartProductCard" />
+        </iscomment>
+        ${Resource.msg('product.name', 'cart', null)}
+        <isinclude template="cart/productCard/cartProductCardHeader" />
+        ${Resource.msg('product.price', 'cart', null)}
+        <isinclude template="cart/productCard/cartProductCardProductPrice" />
+        ${Resource.msg('product.availability', 'cart', null)}
+        <isinclude template="cart/productCard/cartProductCardAvailability" />
+
+        <iscomment>
+            <div>
+                Count: ${loopstate.count} Index: ${loopstate.index} ${productLineItem.productName}
+            </div>
+            <isif condition="${productLineItem.options[0].displayName}">
+                <div>
+                    Option: ${productLineItem.options[0].displayName}
+                </div>
+            <iselse/>
+                <p>No additional options</p>
+            </isif>
+        </iscomment>
+    </isloop>
+</isif>
+<iscomment>
+    </isdecorate>
+</iscomment>

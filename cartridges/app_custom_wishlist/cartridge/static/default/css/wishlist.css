@@ -1,0 +1,16 @@
+.button-heart{
+    border: none;
+    background: #fff;
+}
+.display-none{
+    display: none;
+}
+.display-block{
+    display: block;
+}
+.wishlist-add{
+    display: inline-block;
+}
+.go-to-wishlist{
+    display: inline-block;
+}

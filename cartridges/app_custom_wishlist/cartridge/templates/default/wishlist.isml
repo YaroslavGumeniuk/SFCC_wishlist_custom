@@ -1,0 +1,14 @@
+<isdecorate template="common/layout/page">
+    <h2>MY WISHLIST</h2>
+    <h6>customerWishProductList ${pdict.customerWishProductList}</h6>
+    <h6>ListLength ${pdict.listLength}</h6>
+
+    <div class="container">
+        <div class="row">
+            <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+
+            </div>
+        </div>
+    </div>
+
+</isdecorate>

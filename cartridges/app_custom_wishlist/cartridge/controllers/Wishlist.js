@@ -12,12 +12,9 @@ server.get(
         var ProductListMgr = require('dw/customer/ProductListMgr');
         var ProductList = require('dw/customer/ProductList');
         var customerWishProductList = ProductListMgr.getProductLists(customer, ProductList.TYPE_WISH_LIST);
-        Transaction.wrap(function () {
-            // ProductListMgr.removeProductList(customerWishProductList[0]);
-        });
-
+        var customerWishProductListCurrent = customerWishProductList[0];
         res.render('wishlist', {
-            customerWishProductList: customerWishProductList,
+            customerWishProductList: customerWishProductListCurrent,
             listLength: customerWishProductList.length
         });
         next();
@@ -47,20 +44,11 @@ server.post('AddProduct', function (req, res, next) {
         IDs.push(el.productID);
     });
 
-    // var success = productListHelper.addItem(list, pid, config);
-    // if (success) {
     res.json({
         success: true,
         pid: pid,
         IDs: IDs
     });
-    // } else {
-    //     res.json({
-    //         error: true,
-    //         pid: pid,
-    //         msg: errMsg
-    //     });
-    // }
     next();
 });
 
@@ -87,8 +75,23 @@ server.post('RemoveProduct', function (req, res, next) {
     res.json({
         success: true,
         IDs: IDs,
-        productsInList: productsInList,
         removedListItem: removedListItem
+    });
+    next();
+});
+
+server.post('ClearWishlist', function (req, res, next) {
+    var ProductListMgr = require('dw/customer/ProductListMgr');
+    var ProductList = require('dw/customer/ProductList');
+    var customerWishProductList = ProductListMgr.getProductLists(customer, ProductList.TYPE_WISH_LIST);
+    Transaction.wrap(function () {
+        customerWishProductList[0].items.toArray().forEach(function (item) {
+            customerWishProductList[0].removeItem(item);
+        });
+    });
+
+    res.json({
+        success: true
     });
     next();
 });

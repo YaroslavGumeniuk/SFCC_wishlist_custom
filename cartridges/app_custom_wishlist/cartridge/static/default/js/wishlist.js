@@ -1,5 +1,72 @@
 'use strict';
 
+function clearWishlist() {
+    $('.clear-wishlist').on('click', function (e) {
+        e.preventDefault();
+        var button = this;
+        var url = $(button).data('urlclearwishlist');
+        var pid = [];
+        $('.image-container').each(
+            function () {
+                pid.push($(this).data('pid'));
+            }
+        );
+        $(this).spinner().start();
+
+        console.log(url);
+        console.log(pid);
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                pid: pid
+            },
+            success: function () {
+                $(this).spinner().stop();
+                $('.product-tile').css('display', 'none');
+                $(button).css('display', 'none');
+                $('.wishlist-empty').css('display', 'block');
+            },
+            error: function (err) {
+                $(this).spinner().stop();
+                alert('Something wrong...', err);
+            }
+        });
+    });
+}
+clearWishlist();
+
+function removeProductFromWishlist() {
+    $('.product-remove').on('click', function (e) {
+        e.preventDefault();
+        var url = $('.product-remove').data('urlremove');
+        var pid = $(this).closest('.image-container').data('pid');
+        var $button = this;
+
+        $(this).spinner().start();
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                pid: pid
+            },
+            success: function () {
+                $(this).spinner().stop();
+                $($button).closest('.product-tile').css('display', 'none');
+            },
+            error: function (err) {
+                $(this).spinner().stop();
+                alert('Something wrong...', err);
+            }
+        });
+    });
+}
+removeProductFromWishlist();
+
 function addToWishlist() {
     $('.button-heart').on('click', function (e) {
         e.preventDefault();
@@ -13,6 +80,7 @@ function addToWishlist() {
         $('.add-to-wishlist').spinner().start();
 
         console.log(url);
+        console.log(pid);
 
         $.ajax({
             url: url,

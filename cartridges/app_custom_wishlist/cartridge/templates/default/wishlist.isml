@@ -1,0 +1,34 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/wishlist.js');
+        assets.addCss('/css/wishlist.css');
+    </isscript>
+
+    <div class="container">
+        <h2>Wishlist</h2>
+        <p>items.length ${pdict.customerWishProductList.items.length}</p>
+
+        <isif condition="${pdict.customerWishProductList.items.length > 0}">
+            <button class="clear-wishlist" type="submit"
+                data-urlclearwishlist="${URLUtils.url('Wishlist-ClearWishlist')}">REMOVE
+                ALL</button>
+        <iselse/>
+            <h4 class="wishlist-empty">Wishlist is empty</h4>
+        </isif>
+
+        <div class="row">
+            <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+                <isloop items="${pdict.customerWishProductList.items}" var="product">
+                    <div class="col-6 col-sm-4">
+                        <isobject object="${product.productSearchHit}" view="searchhit">
+                            <isinclude
+                                url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'isWishlistPage', true)}" />
+                        </isobject>
+                    </div>
+                </isloop>
+            </div>
+        </div>
+    </div>
+
+</isdecorate>

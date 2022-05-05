@@ -1,0 +1,28 @@
+.button-heart{
+    border: none;
+    background: #fff;
+}
+.display-none{
+    display: none;
+}
+.display-block{
+    display: block;
+}
+.wishlist-add{
+    display: inline-block;
+}
+.go-to-wishlist{
+    display: inline-block;
+}
+.product-remove {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    cursor: pointer;
+    color: red;
+}
+.clear-wishlist{
+    color: #fff;
+    background-color: red;
+    margin-top: 20px;
+}
